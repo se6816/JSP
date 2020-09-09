@@ -1,0 +1,31 @@
+// nums 배열에서 두 값을 더하여  target을 만들 수 있는 인덱스 반환 문제
+//내가 푼 문제
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int[] result= new int[2];
+        for(int i=0;i<nums.length;i++){  // 제일 처음 인덱스부터 시작한다.
+            for(int j=i+1;j<nums.length;j++){ // (i,j)나 (j,i)나 똑같으므로 j의 시작점을 i보다 1 앞서게 한다.
+                if(nums[i]+nums[j]==target){   // target이 발견되면 result를 return한다.
+                    result[0]=i;
+                    result[1]=j;
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
+}
+// 다른 사람이 푼 방식
+class Solution {
+public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            if(map.containsKey(nums[i])){      // 2. 1번에서 target값에서 nums배열을 뺀 값을 찾는다. 그 값이 존재한다면 결국 어떤 두 값을 더해야 target값이 나오는지 알 수 있다.
+                return new int[]{map.get(nums[i]),i};     // 3. map.get(num[i])은 전에 target값에서 뺸 값을 저장한 인덱스를 가져온거고 i는 현재 for문의 인덱스 값이다.
+            }else{
+                map.put(target - nums[i], i);                 // 1. HashMmap에 target값에 nums배열의 숫자를 빼서 그 값을 집어넣고 해당 인덱스를 저장한다.
+            }
+        }
+        return null;
+    }
+}
